@@ -45,6 +45,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->attachRole('user'); //Laratrust
+
         event(new Registered($user));
 
         Auth::login($user);

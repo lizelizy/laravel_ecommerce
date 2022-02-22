@@ -17,8 +17,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//auth route for both
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
+    ('dashboard');
+});
+
+//for users
+Route::group(['middleware' => ['auth', 'role:user']], function(){
+    Route::get('/dashboard/mycart', 'App\Http\Controllers\DashboardController@mycart')->name
+    ('dashboard.mycart');
+});
+
+//for admin
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/dashboard/store', 'App\Http\Controllers\DashboardController@store')->name
+    ('dashboard.store');
+});
+
 
 require __DIR__.'/auth.php';

@@ -16,6 +16,22 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <!-- Visible only for users -->
+                @if(Auth::user()->hasRole('user'))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.mycart')" :active="request()->routeIs('dashboard.mycart')">
+                        {{ __('My Cart') }}
+                    </x-nav-link>
+                </div>
+                @endif
+                <!-- Visible only for admin -->
+                @if(Auth::user()->hasRole('admin'))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.store')" :active="request()->routeIs('dashboard.store')">
+                        {{ __('Register a New Product') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
