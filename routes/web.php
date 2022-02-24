@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
     ('dashboard');
+    
 });
 
 //for users
@@ -31,9 +32,14 @@ Route::group(['middleware' => ['auth', 'role:user']], function(){
 
 //for admin
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/dashboard/store', 'App\Http\Controllers\DashboardController@store')->name
-    ('dashboard.store');
+    Route::get('/dashboard/create', 'App\Http\Controllers\DashboardController@create')->name
+    ('dashboard.create');
+    Route::post('/dashboard', 'App\Http\Controllers\DashboardController@store')->name
+    ('dashboard');
 });
 
+// No auth
+Route::get('/dashboard/{id}', 'App\Http\Controllers\DashboardController@show')->name
+    ('dashboard.{id}');
 
 require __DIR__.'/auth.php';

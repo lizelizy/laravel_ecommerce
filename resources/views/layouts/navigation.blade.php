@@ -27,7 +27,7 @@
                 <!-- Visible only for admin -->
                 @if(Auth::user()->hasRole('admin'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard.store')" :active="request()->routeIs('dashboard.store')">
+                    <x-nav-link :href="route('dashboard.create')" :active="request()->routeIs('dashboard.create')">
                         {{ __('Register a New Product') }}
                     </x-nav-link>
                 </div>
